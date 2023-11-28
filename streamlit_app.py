@@ -1,40 +1,43 @@
-import altair as alt
-import numpy as np
-import pandas as pd
+# import altair as alt
+# import numpy as np
+# import pandas as pd
 import streamlit as st
+import re
+
+def remove_special_characters_and_spaces(input_string):
+    # Remove special characters using regex
+    cleaned_string = re.sub(r'[^a-zA-Z0-9]', '', input_string)
+
+    # Remove white spaces
+    cleaned_string = cleaned_string.replace(" ", "")
+    print(cleaned_string)
+
+    return cleaned_string
+
+# # Example usage:
+# original_string = "Hello, World! 123"
+# result = remove_special_characters_and_spaces(original_string)
+# print(result)
+
+def ascii_equivalent_case_insensitive(input_string):
+    total_ascii = 0
+    for char in remove_special_characters_and_spaces(input_string):
+        total_ascii += (ord(char.lower()) - 96)  # Convert each character to lowercase before getting the ASCII value
+    return (total_ascii % 9) if (total_ascii % 9) else 9
 
 """
-# Welcome to Streamlit!
+# Welcome !!!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
+Please enter name of your child or your company which you want us to suggest.
 """
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+name = st.text_input('Name')
+st.write('Name: ', name)
+st.write('Value: ', ascii_equivalent_case_insensitive(name))
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
+# Example usage:
+# print(ascii_equivalent_case_insensitive("krishyam technologies private limited"))
 
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+
