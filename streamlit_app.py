@@ -4,6 +4,8 @@
 import streamlit as st
 import re
 
+res = [60, 80, 70, 30, 90, 20, 100, 40, 50]
+
 def remove_special_characters_and_spaces(input_string):
     # Remove special characters using regex
     cleaned_string = re.sub(r'[^a-zA-Z0-9]', '', input_string)
@@ -33,7 +35,8 @@ Please enter name of your child or your company which you want us to suggest.
 
 name = st.text_input('Name')
 st.write('Name: ', name)
-st.write('Value: ', ascii_equivalent_case_insensitive(name))
+# st.write('Value: ', ascii_equivalent_case_insensitive(name))
+st.write('Value: ', res[ascii_equivalent_case_insensitive(name) - 1], ' / 100')
 
 
 
