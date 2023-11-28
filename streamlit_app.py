@@ -30,7 +30,7 @@ def ascii_equivalent_case_insensitive(input_string):
 """
 # Welcome !!!
 
-Please enter name of your child or your company which you want us to suggest.
+Please enter name of your child or your company which you want to check.
 """
 
 name = st.text_input('Name')
